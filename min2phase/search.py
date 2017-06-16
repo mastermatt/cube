@@ -62,8 +62,16 @@ class Search(object):
         self.last_axis_restriction: int = None
         self.cc = cubie_cube.CubieCube()
 
-    def get_solution(self, facelets, max_depth, time_out, time_min, verbose,
-                     first_axis_restriction_str=None, last_axis_restriction_str=None):
+    def get_solution(
+        self,
+        facelets,
+        max_depth,
+        time_out,
+        time_min,
+        verbose,
+        first_axis_restriction_str=None,
+        last_axis_restriction_str=None,
+    ):
         """
         Computes the solver string for a given cube.
 
@@ -358,9 +366,10 @@ class Search(object):
                 if tools.USE_TWIST_FLIP_PRUNE:
                     twist_flip_prune = coord_cube.get_pruning(
                         coord_cube.TWIST_FLIP_PRUNE,
-                        (self.twist[i] >> 3) * 2688 +
-                        (self.flip[i] & 0xfff8 |
-                         cubie_cube.SYM_8_MULT_INV[self.flip[i] & 7][self.twist[i] & 7]),
+                        (self.twist[i] >> 3) * 2688 + (
+                            self.flip[i] & 0xfff8 |
+                            cubie_cube.SYM_8_MULT_INV[self.flip[i] & 7][self.twist[i] & 7]
+                        ),
                     )
 
                 self.prune[i] = max(slice_twist_prune, slice_flip_prune, twist_flip_prune)
@@ -372,7 +381,7 @@ class Search(object):
         print('hello', self.sol, self.prune)
         for depth1 in range(min(self.prune), self.sol):
             self.depth1 = depth1
-            self.max_depth2 = min(12, self.sol-depth1)
+            self.max_depth2 = min(12, self.sol - depth1)
             for urf_idx in range(6):
                 if conj_mask2[urf_idx]:
                     continue
@@ -419,8 +428,17 @@ class Search(object):
             raise ValueError("Error 7: No solution exists for the given maxDepth")
         return self.solution
 
-    def _phase1(self, twist: int, t_sym: int, flip: int, f_sym: int,
-                ud_slice: int, max_l: int, last_axis: int, call_size: int):
+    def _phase1(
+        self,
+        twist: int,
+        t_sym: int,
+        flip: int,
+        f_sym: int,
+        ud_slice: int,
+        max_l: int,
+        last_axis: int,
+        call_size: int,
+    ):
         """
         In phase 1, the algorithm looks for maneuvers which will transform a scrambled cube to
         G1. That is, the orientations of corners and edges have to be constrained and the edges
@@ -448,7 +466,7 @@ class Search(object):
             return self._init_phase2() if max_l == 0 else 1
 
         for axis in range(0, 18, 3):
-            if axis == last_axis or axis == last_axis-9:
+            if axis == last_axis or axis == last_axis - 9:
                 continue
 
             for power in range(3):
@@ -501,8 +519,8 @@ class Search(object):
                 if prune == max_l:
                     continue
 
-                self.move[self.depth1-max_l] = m
-                self.phase1_move[self.depth1-max_l] = m
+                self.move[self.depth1 - max_l] = m
+                self.phase1_move[self.depth1 - max_l] = m
                 self.move_set_count += 1
                 # print("set move", self.move_set_count, self.move, self.depth1, max_l, m)
                 # print('hello',  call_size, self.phase1_move)
@@ -519,9 +537,9 @@ class Search(object):
                     flip=flip_x,
                     f_sym=f_sym_x,
                     ud_slice=slice_x,
-                    max_l=max_l-1,
+                    max_l=max_l - 1,
                     last_axis=axis,
-                    call_size=call_size+1,
+                    call_size=call_size + 1,
                 )
 
                 if ret != 1:
@@ -566,12 +584,12 @@ class Search(object):
             if c_idx < 0:
                 raise ValueError(c_idx)
             c_idx >>= 4
-            self.corn[i+1] = c_idx << 4 | c_sym
+            self.corn[i + 1] = c_idx << 4 | c_sym
 
             cx = coord_cube.UD_SLICE_MOVE[self.mid4[i] & 0x1ff][m]
             if self.mid4[i] < 0 or cx < 0:
                 raise ValueError(self.mid4[i], cx)
-            self.mid4[i+1] = util.PERM_MULT[self.mid4[i] >> 9][cx >> 9] << 9 | cx & 0x1ff
+            self.mid4[i + 1] = util.PERM_MULT[self.mid4[i] >> 9][cx >> 9] << 9 | cx & 0x1ff
 
         self.valid1 = self.depth1
         if self.mid4[self.depth1] < 0:
@@ -599,7 +617,7 @@ class Search(object):
             cx = coord_cube.UD_SLICE_MOVE[d4e & 0x1ff][m]
             d4e = util.PERM_MULT[d4e >> 9][cx >> 9] << 9 | cx & 0x1ff
 
-            self.ud8e[i+1] = u4e << 16 | d4e
+            self.ud8e[i + 1] = u4e << 16 | d4e
 
         self.valid2 = self.depth1
 
@@ -609,8 +627,7 @@ class Search(object):
 
         prune = max(
             coord_cube.get_pruning(
-                coord_cube.ME_PERM_PRUNE,
-                edge * 24 + coord_cube.M_PERM_CONJUGATE[mid][e_sym]
+                coord_cube.ME_PERM_PRUNE, edge * 24 + coord_cube.M_PERM_CONJUGATE[mid][e_sym]
             ),
             prune,
         )
@@ -626,8 +643,7 @@ class Search(object):
         )
         lm = (
             first_axis_restrict_ud
-            if self.depth1 == 0 else
-            util.STD_2_UD[self.move[self.depth1-1]//3*3+1]
+            if self.depth1 == 0 else util.STD_2_UD[self.move[self.depth1 - 1] // 3 * 3 + 1]
         )
 
         for depth2 in range(prune, self.max_depth2):
@@ -644,13 +660,22 @@ class Search(object):
 
             if ret:
                 self.sol = self.depth1 + depth2
-                self.max_depth2 = min(12, self.sol-self.depth1)
+                self.max_depth2 = min(12, self.sol - self.depth1)
                 self.solution = self._solution_to_string()
                 return 0 if time.time() >= self.time_min else 1
         return 1
 
-    def _phase2(self, e_idx: int, e_sym: int, c_idx: int, c_sym: int,
-                mid: int, max_l: int, depth: int, lm: int):
+    def _phase2(
+        self,
+        e_idx: int,
+        e_sym: int,
+        c_idx: int,
+        c_sym: int,
+        mid: int,
+        max_l: int,
+        depth: int,
+        lm: int,
+    ):
         if max_l == 0:
             # We've done the last move we're allowed to do, make sure
             # it's permitted by lastAxisRestriction.
@@ -699,8 +724,8 @@ class Search(object):
                 c_idx=c_idx_x,
                 c_sym=c_sym_x,
                 mid=mid_x,
-                max_l=max_l-1,
-                depth=depth+1,
+                max_l=max_l - 1,
+                depth=depth + 1,
                 lm=m,
             )
 
@@ -744,9 +769,7 @@ class Search(object):
         }
         """
         urf = (
-            (self.urf_idx + 3) % 6
-            if (self.verbose & self.INVERSE_SOLUTION) != 0 else
-            self.urf_idx
+            (self.urf_idx + 3) % 6 if (self.verbose & self.INVERSE_SOLUTION) != 0 else self.urf_idx
         )
         separator = '.  ' if (self.verbose & self.USE_SEPARATOR) != 0 else ''
         len_post = f'({self.sol}f)' if (self.verbose & self.APPEND_LENGTH) != 0 else ''
@@ -763,11 +786,11 @@ class Search(object):
         else:
             first_chunk = ''.join(
                 util.MOVE_2_STR[cubie_cube.URF_MOVE[urf][self.move[s]]]
-                for s in range(self.sol-1, self.depth1-1, -1)
+                for s in range(self.sol - 1, self.depth1 - 1, -1)
             )
             second_chunk = ''.join(
                 util.MOVE_2_STR[cubie_cube.URF_MOVE[urf][self.move[s]]]
-                for s in range(self.depth1-1, -1, -1)
+                for s in range(self.depth1 - 1, -1, -1)
             )
 
         return f'{first_chunk} {separator}{second_chunk} {len_post}'

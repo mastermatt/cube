@@ -1,6 +1,4 @@
-
 import itertools
-
 
 # Moves
 Ux1 = 0
@@ -87,13 +85,29 @@ L = 4
 B = 5
 
 CORNER_FACELET = [
-    [U9, R1, F3], [U7, F1, L3], [U1, L1, B3], [U3, B1, R3],
-    [D3, F9, R7], [D1, L9, F7], [D7, B9, L7], [D9, R9, B7],
+    [U9, R1, F3],
+    [U7, F1, L3],
+    [U1, L1, B3],
+    [U3, B1, R3],
+    [D3, F9, R7],
+    [D1, L9, F7],
+    [D7, B9, L7],
+    [D9, R9, B7],
 ]
 
 EDGE_FACELET = [
-    [U6, R2], [U8, F2], [U4, L2], [U2, B2], [D6, R8], [D2, F8],
-    [D4, L8], [D8, B8], [F6, R4], [F4, L6], [B6, L4], [B4, R6],
+    [U6, R2],
+    [U8, F2],
+    [U4, L2],
+    [U2, B2],
+    [D6, R8],
+    [D2, F8],
+    [D4, L8],
+    [D8, B8],
+    [F6, R4],
+    [F4, L6],
+    [B6, L4],
+    [B4, R6],
 ]
 
 # C(n,k) is the binomial coefficient (n choose k)
@@ -103,8 +117,10 @@ PERM_MULT = [x[:] for x in [[0] * 24] * 24]  # int[24][24]
 
 FACES = ['U', 'R', 'F', 'D', 'L', 'B']
 
-MOVE_2_STR = ["U", "U2", "U'", "R", "R2", "R'", "F", "F2", "F'",
-              "D", "D2", "D'", "L", "L2", "L'", "B", "B2", "B'"]
+MOVE_2_STR = [
+    "U", "U2", "U'", "R", "R2", "R'", "F", "F2", "F'", "D", "D2", "D'", "L", "L2", "L'", "B", "B2",
+    "B'"
+]
 
 STR_2_MOVE = {v: i for i, v in enumerate(MOVE_2_STR)}
 
@@ -127,7 +143,7 @@ def get_n_parity(idx: int, n: int) -> int:
     }
     """
     p = 0
-    for i in range(2, n+1):
+    for i in range(2, n + 1):
         p ^= idx % i
         idx //= i
 
@@ -195,7 +211,7 @@ def set_8_perm(arr: list, idx: int):
     for i in range(7):
         p = FACT[7 - i]
         v = idx // p
-        idx -= p*v
+        idx -= p * v
         v <<= 2
         arr[i] = (val >> v) & 7
         mask = (1 << v) - 1
@@ -220,8 +236,8 @@ def get_n_perm(arr: list, n: int) -> int:
     """
     idx = 0
     for i in range(n):
-        idx *= n-i
-        for j in range(i+1, n):
+        idx *= n - i
+        for j in range(i + 1, n):
             if arr[j] < arr[i]:
                 idx += 1
     return idx
@@ -243,10 +259,10 @@ def set_n_perm(arr: list, idx: int, n: int):
     """
     # arr = [None] * n
     arr[-1] = 0
-    for i in range(n-2, -1, -1):
-        arr[i] = (idx % (n-i))
+    for i in range(n - 2, -1, -1):
+        arr[i] = (idx % (n - i))
         idx //= (n - i)
-        for j in range(i+1, n):
+        for j in range(i + 1, n):
             if arr[j] >= arr[i]:
                 arr[j] += 1
     # return arr
@@ -398,8 +414,8 @@ def to_cubie_cube(f: list, cc_ret):
     }
     """
     # invalidate corners and edges
-    cc_ret.cp = [0]*8
-    cc_ret.ep = [0]*12
+    cc_ret.cp = [0] * 8
+    cc_ret.ep = [0] * 12
 
     for i in range(8):
         # get the colors of the cubie at corner i, starting with U/D
@@ -464,7 +480,7 @@ def to_face_cube(cc) -> str:
     :return:
     """
     # start with a solved cube so the centers are populated
-    result = [FACES[i//9] for i in range(54)]
+    result = [FACES[i // 9] for i in range(54)]
 
     for i in range(8):
         j = cc.cp[i]  # corner cubie with index j is at corner position with index i
@@ -499,12 +515,13 @@ def _prep():
     for i in range(12):
         FACT[i + 1] = FACT[i] * (i + 1)
 
-    arr1 = [0]*4
-    arr2 = [0]*4
+    arr1 = [0] * 4
+    arr2 = [0] * 4
     for i, j in itertools.product(range(24), range(24)):
         set_n_perm(arr1, i, 4)
         set_n_perm(arr2, j, 4)
         arr3 = [arr1[x] for x in arr2]
         PERM_MULT[i][j] = get_n_perm(arr3, 4)
+
 
 _prep()

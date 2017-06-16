@@ -21,49 +21,49 @@ def init_index():
     start = time.time()
 
     cubie_cube.init_move()
-    print('init_move', time.time()-start)
+    print('init_move', time.time() - start)
     cubie_cube.init_sym()
-    print('init_sym', time.time()-start)
+    print('init_sym', time.time() - start)
     cubie_cube.init_flip_sym_2_raw()
-    print('init_flip_sym_2_raw', time.time()-start)
+    print('init_flip_sym_2_raw', time.time() - start)
     cubie_cube.init_twist_sym_2_raw()
-    print('init_twist_sym_2_raw', time.time()-start)
+    print('init_twist_sym_2_raw', time.time() - start)
 
     cubie_cube.init_perm_sym_2_raw()
-    print('init_perm_sym_2_raw', time.time()-start)
+    print('init_perm_sym_2_raw', time.time() - start)
     coord_cube.init_flip_move()
-    print('init_flip_move', time.time()-start)
+    print('init_flip_move', time.time() - start)
     coord_cube.init_twist_move()
-    print('init_twist_move', time.time()-start)
+    print('init_twist_move', time.time() - start)
     coord_cube.init_ud_slice_move_conjugate()
-    print('init_ud_slice_move_conjugate', time.time()-start)
+    print('init_ud_slice_move_conjugate', time.time() - start)
 
     coord_cube.init_c_perm_move()
-    print('init_c_perm_move', time.time()-start)
+    print('init_c_perm_move', time.time() - start)
     coord_cube.init_e_perm_move()
-    print('init_e_perm_move', time.time()-start)
+    print('init_e_perm_move', time.time() - start)
     coord_cube.init_m_perm_move_conjugate()
-    print('init_m_perm_move_conjugate', time.time()-start)
+    print('init_m_perm_move_conjugate', time.time() - start)
 
     if USE_TWIST_FLIP_PRUNE:
         coord_cube.init_twist_flip_prune()
         print('')
-        print('init_twist_flip_prune', time.time()-start)
+        print('init_twist_flip_prune', time.time() - start)
 
     coord_cube.init_slice_twist_prune()
-    print('init_slice_twist_prune', time.time()-start)
+    print('init_slice_twist_prune', time.time() - start)
 
     coord_cube.init_slice_flip_prune()
-    print('init_slice_flip_prune', time.time()-start)
+    print('init_slice_flip_prune', time.time() - start)
 
     coord_cube.init_m_e_perm_prune()
-    print('init_m_e_perm_prune', time.time()-start)
+    print('init_m_e_perm_prune', time.time() - start)
 
     coord_cube.init_m_c_perm_prune()
-    print('init_m_c_perm_prune', time.time()-start)
+    print('init_m_c_perm_prune', time.time() - start)
 
     end = time.time()
-    print("Done.", end-start)
+    print("Done.", end - start)
 
     INITED = True
 
@@ -235,8 +235,8 @@ def _resolve_perm(arr: list, cnt_u: int, parity: int):
             arr[i] = val[cnt_u]
 
     p = util.get_n_parity(util.get_n_perm(arr, len(arr)), len(arr))
-    if p == 1-parity and last != -1:
-        arr[idx-1], arr[last] = arr[last], arr[idx-1]
+    if p == 1 - parity and last != -1:
+        arr[idx - 1], arr[last] = arr[last], arr[idx - 1]
     return p
 
 
