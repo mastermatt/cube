@@ -118,12 +118,13 @@ PERM_MULT = [x[:] for x in [[0] * 24] * 24]  # int[24][24]
 FACES = ['U', 'R', 'F', 'D', 'L', 'B']
 
 MOVE_2_STR = [
-    "U", "U2", "U'", "R", "R2", "R'", "F", "F2", "F'", "D", "D2", "D'", "L", "L2", "L'", "B", "B2",
-    "B'"
+    "U", "U2", "U'", "R", "R2", "R'", "F", "F2", "F'",
+    "D", "D2", "D'", "L", "L2", "L'", "B", "B2", "B'",
 ]
 
 STR_2_MOVE = {v: i for i, v in enumerate(MOVE_2_STR)}
 
+# This is the list of moves that are allowed to keep a cube inside the subset G1
 UD_2_STD = [Ux1, Ux2, Ux3, Rx2, Fx2, Dx1, Dx2, Dx3, Lx2, Bx2]  # 0, 1, 2, 4, 7, 9, 10, 11, 13, 16
 STD_2_UD = [0] * 18
 # ^ only first 10 get hydrated, the rest seem to be to smooth index errors during lookup
@@ -351,7 +352,7 @@ def set_comb(arr: list, idx: int, mask: int):
     idx_c = 494 - (idx & 0x1ff)
     if idx < 0:
         raise ValueError(idx)
-    idx_p = idx >> 9  # todo >>>
+    idx_p = idx >> 9
     for i in range(11, -1, -1):
         if idx_c >= CNK[i][r]:
             idx_c -= CNK[i][r]

@@ -5,6 +5,7 @@ http://kociemba.org/math/coordlevel.htm
 """
 
 import array
+import collections
 import itertools
 from typing import Optional
 from . import cubie_cube
@@ -411,27 +412,25 @@ def _init_raw_sym_prune(
     depth = 0
     done = 1
 
-    while done < n_size:
-        # print(f'{depth}\t{done}\t{done/n_size*100:.8f}%\t')  # , end="\r")
+    while done < n_size:  # loops 9x
+
         inv = depth > inv_depth
         select, check = (0x0f, depth) if inv else (depth, 0x0f)
         depth += 1
         assert depth < 15
         i = 0
 
+        # loops [0, 20068, 20137, 20504, 23722, 45361, 104841, 113748, 136809, 160229, 0, 0]
         while i < n_size:
             val = prune_table[i >> 3]
+
             if not inv and val == NO:
                 i += 8
                 continue
 
             for _ in range(i, min(i + 8, n_size)):
                 is_select = get_pruning(prune_table, i) == select
-                # is_select = (val & 0x0f) == select
-                # print(f'a{n_size}\t{done}\t{depth}\t{done/n_size*100:.8f}%\t'
-                #       f'{i/n_size*100:.8f}%\t{x}x\t', end="\r")
                 i += 1
-                # val >>= 4
 
                 if not is_select:
                     break
@@ -479,6 +478,154 @@ def _init_raw_sym_prune(
                             done += 1
 
 
+def _init_raw_sym_prune2(
+    prune_table: list,
+    raw_move: list,
+    raw_conj: list,
+    sym_move: list,
+    sym_state: list,
+    sym_shift: int,
+    sym_switch: list = None,
+    move_map: list = None,
+):
+
+    sym_mask = (1 << sym_shift) - 1
+    n_raw = len(raw_move)
+    n_sym = len(sym_move)
+    n_size = n_raw * n_sym
+    n_moves = len(raw_move[0])
+
+    print(n_size, n_moves)
+
+    # if len(prune_table) != ((n_size+7)//8):
+    #     raise ValueError(len(prune_table), ((n_size+7)//8))
+    # for i in range((n_size+7)//8):
+    #     prune_table[i] = -1
+
+    # prune_table = array.ArrayType('l', [NO] * ((n_size + 7) // 8))
+    set_pruning(prune_table, 0, 0)
+    queue = collections.deque([0], n_size)
+    unset_value: int = 0x0f
+    complexity = 0
+    done = 1
+
+    while done < n_size:
+        current_idx = queue.popleft()
+        raw = current_idx % n_raw
+        sym = current_idx // n_raw
+
+        for m in range(n_moves):
+            complexity += 1
+            sym_x = sym_move[sym][move_map[m] if move_map else m]
+            raw_x = raw_conj[raw_move[raw][m] & 0x1ff][sym_x & sym_mask]
+
+            sym_x >>= sym_shift
+            idx = sym_x * n_raw + raw_x
+
+            x = get_pruning(prune_table, idx)
+            if x != unset_value:
+                continue
+
+            depth: int = get_pruning(prune_table, current_idx)
+            set_pruning(prune_table, idx, depth + 1)
+            queue.append(idx)
+            done += 1
+
+            sym_state_val = sym_state[sym_x]
+            for j in itertools.count(1):
+                sym_state_val >>= 1
+                if sym_state_val == 0:
+                    break
+
+                if sym_state_val & 1 == 0:
+                    continue
+
+                sym_s = (j ^ sym_switch[j]) if sym_switch else j
+                ix = sym_x * n_raw + raw_conj[raw_x][sym_s]
+                z = get_pruning(prune_table, ix)
+                if z == unset_value:
+                    set_pruning(prune_table, ix, depth+1)
+                    queue.append(ix)
+                    done += 1
+
+    # return prune_table
+    print(complexity)
+
+
+def _init_raw_sym_prune3(
+    prune_table: list,
+    raw_move: list,
+    raw_conj: list,
+    sym_move: list,
+    sym_state: list,
+    sym_shift: int,
+    sym_switch: list = None,
+    move_map: list = None,
+):
+
+    sym_mask = (1 << sym_shift) - 1
+    n_raw = len(raw_move)
+    n_sym = len(sym_move)
+    n_size = n_raw * n_sym
+    n_moves = len(raw_move[0])
+
+    print(n_size, n_moves)
+
+    # prune_table = array.ArrayType('l', [NO] * ((n_size + 7) // 8))
+    prune_table[0] = 0
+    queue = collections.deque([0])
+    # unset_value: int = 0x0f
+    unset_value: int = NO
+    complexity = 0
+    done = 1
+
+    while done < n_size:
+        current_idx = queue.popleft()
+        raw = current_idx % n_raw
+        sym = current_idx // n_raw
+
+        for m in range(n_moves):
+            sym_x = sym_move[sym][move_map[m] if move_map else m]
+            raw_x = raw_conj[raw_move[raw][m] & 0x1ff][sym_x & sym_mask]
+            sym_x >>= sym_shift
+            idx = sym_x * n_raw + raw_x
+
+            # x: int = prune_table[idx]
+            # x = get_pruning(prune_table, idx)
+            # if x != unset_value:
+            #     continue
+            complexity += 1
+            if prune_table[idx] != unset_value:
+                continue
+
+            # depth: int = get_pruning(prune_table, current_idx)
+            # set_pruning(prune_table, idx, depth + 1)
+            depth = prune_table[current_idx]
+            prune_table[idx] = depth + 1
+            queue.append(idx)
+            done += 1
+
+            sym_state_val = sym_state[sym_x]
+            for j in itertools.count(1):
+                sym_state_val >>= 1
+                if sym_state_val == 0:
+                    break
+
+                if sym_state_val & 1 == 0:
+                    continue
+
+                sym_s = (j ^ sym_switch[j]) if sym_switch else j
+                ix = sym_x * n_raw + raw_conj[raw_x][sym_s]
+                # z = prune_table[ix]
+                # if z == unset_value:
+                if prune_table[ix] == unset_value:
+                    prune_table[ix] = depth+1
+                    queue.append(ix)
+                    done += 1
+
+    print(complexity)
+
+
 def set_basic_pruning(table, index, value):
     if table[index] is None:
         table[index] = value
@@ -491,9 +638,11 @@ def get_basic_pruning(table, index):
     return table[index]
 
 
+# import time
 def init_slice_twist_prune():
     global UD_SLICE_TWIST_PRUNE
 
+    # start = time.time()
     UD_SLICE_TWIST_PRUNE = array.ArrayType('l', [NO] * (N_SLICE * N_TWIST_SYM // 8 + 1))
     _init_raw_sym_prune(
         prune_table=UD_SLICE_TWIST_PRUNE,
@@ -506,6 +655,41 @@ def init_slice_twist_prune():
         move_map=None,
         sym_shift=3,
     )
+    # print("existing way", time.time() - start)
+    #
+    # start = time.time()
+    # test = array.ArrayType('l', [NO] * (N_SLICE * N_TWIST_SYM // 8 + 1))
+    # _init_raw_sym_prune2(
+    #     prune_table=test,
+    #     raw_move=UD_SLICE_MOVE,
+    #     raw_conj=UD_SLICE_CONJUGATE,
+    #     sym_move=TWIST_MOVE,
+    #     sym_state=cubie_cube.SYM_STATE_TWIST,
+    #     sym_shift=3,
+    # )
+    # print("py bfs way", time.time() - start)
+    # print(len(test), test)
+    #
+    # start = time.time()
+    # test = array.ArrayType('l', [NO] * (N_SLICE * N_TWIST_SYM))
+    # _init_raw_sym_prune3(
+    #     prune_table=test,
+    #     raw_move=UD_SLICE_MOVE,
+    #     raw_conj=UD_SLICE_CONJUGATE,
+    #     sym_move=TWIST_MOVE,
+    #     sym_state=cubie_cube.SYM_STATE_TWIST,
+    #     sym_shift=3,
+    # )
+    # print("py bfs way 2", time.time() - start)
+    # print(len(test), test)
+    #
+    # a = [
+    #     1 if i == j else 0
+    #     for i, j in zip(UD_SLICE_TWIST_PRUNE, test)
+    # ]
+    #
+    # raise ValueError(UD_SLICE_TWIST_PRUNE == test,
+    #                  len(UD_SLICE_TWIST_PRUNE), len(test), len(a), sum(a))
 
 
 def init_slice_flip_prune():

@@ -107,6 +107,66 @@ class CubieCube(object):
             'eo': self.eo,
         })
 
+    def corner_multiply(self, b: 'CubieCube'):
+        """
+        Multiplies this cubie cube with another cubie cube b, restricted to the corners.
+
+        Does not change b.
+        """
+        c_perm = [0] * 8
+        c_ori = [0] * 8
+
+        for i in range(8):
+            c_perm[i] = self.cp[b.cp[i]]
+            ori_a = self.co[b.cp[i]]
+            ori_b = b.co[i]
+            ori = ori_a
+            ori += ori_b if (ori_a < 3) else 6 - ori_b
+            ori %= 3
+            if (ori_a >= 3) ^ (ori_b >= 3):
+                ori += 3
+            c_ori[i] = ori
+
+        self.cp = c_perm
+        self.co = c_ori
+
+    def edge_multiply(self, b: 'CubieCube'):
+        """
+        Multiplies this cubie cube with another cubiecube b, restricted to the edges.
+
+        Does not change b.
+        prod = a * b, Edge Only.
+
+        static void EdgeMult(CubieCube a, CubieCube b, CubieCube prod) {
+            for (int ed=0; ed<12; ed++) {
+                prod.ep[ed] = a.ep[b.ep[ed]];
+                prod.eo[ed] = (byte) (b.eo[ed] ^ a.eo[b.ep[ed]]);
+            }
+        }
+        """
+        e_perm = [0] * 12
+        e_ori = [0] * 12
+
+        for i in range(12):
+            e_perm[i] = self.ep[b.ep[i]]
+            e_ori[i] = b.eo[i] ^ self.eo[b.ep[i]]
+
+        self.ep = e_perm
+        self.eo = e_ori
+
+    def multiply(self, b):
+        self.corner_multiply(b)
+        self.edge_multiply(b)
+
+    def apply_move(self, move):
+        init_move()
+        self.multiply(MOVE_CUBE[move])
+
+    def apply_str_moves(self, str_moves: str):
+        for str_move in str_moves.split():
+            move = util.STR_2_MOVE[str_move]
+            self.apply_move(move)
+
     def inv_cubie_cube(self):
         """
         void invCubieCube() {
@@ -173,6 +233,10 @@ class CubieCube(object):
 
     def get_flip(self) -> int:
         """
+        The flip of the 12 edges.
+
+        0 <= flip < 2048 in phase 1, flip = 0 in phase 2.
+
         int getFlip() {
             int idx = 0;
             for (int i=0; i<11; i++) {
@@ -315,7 +379,11 @@ class CubieCube(object):
         return 0
 
     def get_ud_slice(self) -> int:
-        # http://kociemba.org/math/UDSliceCoord.htm
+        """
+        Location of the UD-slice edges FR,FL,BL and BR ignoring their permutation.
+
+        http://kociemba.org/math/UDSliceCoord.htm
+        """
         return util.get_comb(self.ep, 8)
 
     def set_ud_slice(self, idx: int):
@@ -655,6 +723,9 @@ def init_move():
     }
     """
     global MOVE_CUBE
+
+    if MOVE_CUBE[0] is not None:
+        return
 
     MOVE_CUBE[0] = CubieCube(15120, 0, 119750400, 0)
     MOVE_CUBE[3] = CubieCube(21021, 1494, 323403417, 0)

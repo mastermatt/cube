@@ -1,0 +1,23 @@
+_init_raw_sym_prune             1   2808    1698
+get_pruning                     1609752 867 867
+<built-in method builtins.min>  542094  133 133
+set_pruning                     160380  109 109
+edge_conjugate                  3960    50  50
+corner_multiply                 6122    41  41
+get_comb                        6930    34  34
+edge_multiply                   3004    24  24
+corner_conjugate                2880    22  22
+
+
+
+_init_raw_sym_prune2            1   4962    2998
+get_pruning                     3050668 1797    1797
+set_pruning                     160380  127 127
+edge_conjugate                  3960    49  49
+corner_multiply                 6122    45  45
+get_comb                        6930    36  36
+<built-in method builtins.compile>  7   26  26
+edge_multiply                   3004    24  24
+corner_conjugate                2880    21  21
+init_ud_slice_move_conjugate    1   138 20
+

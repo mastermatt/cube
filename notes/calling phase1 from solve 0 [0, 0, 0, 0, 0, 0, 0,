@@ -1,0 +1,108 @@
+calling phase1 from solve 0 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 7 0
+calling phase1 from solve 1 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 7 1
+calling phase1 from solve 2 [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 7 2
+calling phase1 from solve 2 [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 7 4
+calling phase1 from solve 2 [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 8 0
+calling phase1 from solve 34 [17, 12, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 8 1
+calling phase1 from solve 71 [14, 9, 3, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 8 2
+calling phase1 from solve 102 [17, 3, 12, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 8 3
+calling phase1 from solve 120 [17, 9, 5, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 8 4
+calling phase1 from solve 132 [14, 11, 5, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 8 5
+calling phase1 from solve 175 [16, 5, 8, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 9 0
+calling phase1 from solve 729 [17, 14, 9, 7, 9, 5, 0, 3, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 9 1
+calling phase1 from solve 1277 [17, 14, 14, 17, 5, 17, 12, 16, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 9 2
+calling phase1 from solve 1765 [17, 14, 16, 5, 1, 17, 12, 16, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 9 3
+calling phase1 from solve 2172 [17, 13, 9, 11, 3, 6, 10, 3, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 9 4
+calling phase1 from solve 2437 [17, 14, 13, 4, 8, 6, 10, 3, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 9 5
+calling phase1 from solve 2990 [17, 14, 17, 3, 3, 1, 11, 17, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 10 0
+
+
+calling phase1 from solve 0 [] 6 4
+calling phase1 from solve 0 [] 6 4
+calling phase1 from solve 0 [] 7 0
+calling phase1 from solve 1 [1] 7 0
+calling phase1 from solve 1 [1] 7 0
+calling phase1 from solve 1 [1] 7 0
+calling phase1 from solve 2 [0] 7 0
+calling phase1 from solve 3 [0] 7 0
+calling phase1 from solve 6 [17] 7 0
+calling phase1 from solve 9 [17] 7 1
+calling phase1 from solve 10 [9] 7 1
+calling phase1 from solve 14 [14] 7 1
+calling phase1 from solve 18 [14] 7 1
+calling phase1 from solve 21 (2) [8, 6] 7 1
+calling phase1 from solve 24 (2) [8, 6] 7 2
+calling phase1 from solve 24 (2) [8, 6] 7 2
+calling phase1 from solve 25 (2) [14, 6] 7 2
+calling phase1 from solve 26 (2) [14, 6] 7 2
+calling phase1 from solve 33 (2) [14, 8] 7 2
+calling phase1 from solve 40 (2) [14, 8] 7 2
+calling phase1 from solve 40 (2) [14, 8] 7 2
+calling phase1 from solve 40 (2) [14, 8] 7 2
+calling phase1 from solve 40 (2) [14, 8] 7 2
+calling phase1 from solve 40 (2) [14, 8] 7 3
+calling phase1 from solve 42 (2) [14, 15] 7 3
+calling phase1 from solve 44 (2) [14, 15] 7 4
+calling phase1 from solve 44 (2) [14, 15] 7 4
+calling phase1 from solve 44 (2) [14, 15] 7 4
+calling phase1 from solve 44 (2) [14, 15] 7 4
+calling phase1 from solve 46 (2) [15, 15] 7 4
+calling phase1 from solve 48 (2) [15, 15] 7 4
+calling phase1 from solve 50 (2) [8, 3] 7 4
+calling phase1 from solve 52 (2) [8, 3] 7 5
+calling phase1 from solve 52 (2) [8, 3] 7 5
+calling phase1 from solve 52 (2) [8, 3] 7 5
+calling phase1 from solve 53 (2) [1, 3] 7 5
+calling phase1 from solve 54 (2) [1, 3] 8 0
+calling phase1 from solve 86 (3) [17, 12, 3] 8 0
+calling phase1 from solve 93 (3) [11, 17, 3] 8 0
+calling phase1 from solve 100 (3) [11, 17, 3] 8 0
+calling phase1 from solve 141 (3) [17, 14, 11] 8 0
+calling phase1 from solve 182 (3) [17, 14, 11] 8 0
+calling phase1 from solve 210 (3) [17, 13, 9] 8 0
+calling phase1 from solve 238 (3) [17, 13, 9] 8 0
+calling phase1 from solve 302 (4) [17, 5, 16, 3] 8 0
+calling phase1 from solve 366 (4) [17, 5, 16, 3] 8 1
+calling phase1 from solve 403 (4) [14, 9, 3, 15] 8 1
+calling phase1 from solve 458 (4) [16, 11, 8, 1] 8 1
+calling phase1 from solve 513 (4) [16, 11, 8, 1] 8 1
+calling phase1 from solve 521 (4) [14, 8, 12, 1] 8 1
+calling phase1 from solve 529 (4) [14, 8, 12, 1] 8 1
+calling phase1 from solve 588 (4) [16, 0, 9, 11] 8 1
+calling phase1 from solve 647 (4) [16, 0, 9, 11] 8 1
+calling phase1 from solve 657 (4) [15, 4, 2, 11] 8 1
+calling phase1 from solve 667 (4) [15, 4, 2, 11] 8 2
+calling phase1 from solve 698 (4) [17, 3, 12, 11] 8 2
+calling phase1 from solve 722 (4) [17, 17, 2, 12] 8 2
+calling phase1 from solve 746 (4) [17, 17, 2, 12] 8 2
+calling phase1 from solve 852 (8) [17, 14, 7, 11, 12, 0, 13, 8] 8 2
+calling phase1 from solve 958 (8) [17, 14, 7, 11, 12, 0, 13, 8] 8 2
+calling phase1 from solve 990 (8) [17, 0, 16, 8, 12, 0, 13, 8] 8 2
+calling phase1 from solve 1022 (8) [17, 0, 16, 8, 12, 0, 13, 8] 8 2
+calling phase1 from solve 1047 (8) [17, 14, 14, 8, 12, 0, 13, 8] 8 2
+calling phase1 from solve 1072 (8) [17, 14, 14, 8, 12, 0, 13, 8] 8 3
+calling phase1 from solve 1090 (8) [17, 9, 5, 8, 12, 0, 13, 8] 8 3
+calling phase1 from solve 1168 (8) [17, 9, 8, 3, 12, 0, 13, 8] 8 3
+calling phase1 from solve 1246 (8) [17, 9, 8, 3, 12, 0, 13, 8] 8 3
+calling phase1 from solve 1253 (8) [15, 2, 8, 3, 12, 0, 13, 8] 8 3
+calling phase1 from solve 1260 (8) [15, 2, 8, 3, 12, 0, 13, 8] 8 3
+calling phase1 from solve 1272 (8) [17, 9, 8, 3, 12, 0, 13, 8] 8 3
+calling phase1 from solve 1284 (8) [17, 9, 8, 3, 12, 0, 13, 8] 8 4
+calling phase1 from solve 1296 (8) [14, 11, 8, 3, 12, 0, 13, 8] 8 4
+calling phase1 from solve 1306 (8) [17, 11, 8, 3, 12, 0, 13, 8] 8 4
+calling phase1 from solve 1316 (8) [17, 11, 8, 3, 12, 0, 13, 8] 8 4
+calling phase1 from solve 1338 (8) [17, 9, 3, 3, 12, 0, 13, 8] 8 4
+calling phase1 from solve 1360 (8) [17, 9, 3, 3, 12, 0, 13, 8] 8 4
+calling phase1 from solve 1392 (8) [17, 10, 4, 3, 12, 0, 13, 8] 8 4
+calling phase1 from solve 1424 (8) [17, 10, 4, 3, 12, 0, 13, 8] 8 4
+calling phase1 from solve 1446 (8) [17, 12, 17, 13, 12, 0, 13, 8] 8 4
+calling phase1 from solve 1468 (8) [17, 12, 17, 13, 12, 0, 13, 8] 8 5
+calling phase1 from solve 1511 (8) [16, 5, 8, 17, 12, 0, 13, 8] 8 5
+calling phase1 from solve 1516 (8) [14, 17, 8, 17, 12, 0, 13, 8] 8 5
+calling phase1 from solve 1521 (8) [14, 17, 8, 17, 12, 0, 13, 8] 8 5
+calling phase1 from solve 1543 (8) [17, 11, 3, 17, 12, 0, 13, 8] 8 5
+calling phase1 from solve 1565 (8) [17, 11, 3, 17, 12, 0, 13, 8] 8 5
+calling phase1 from solve 1617 (8) [17, 14, 0, 7, 12, 0, 13, 8] 8 5
+calling phase1 from solve 1669 (8) [17, 14, 0, 7, 12, 0, 13, 8] 8 5
+calling phase1 from solve 1707 (8) [17, 10, 3, 7, 12, 0, 13, 8] 8 5
+calling phase1 from solve 1745 (8) [17, 10, 3, 7, 12, 0, 13, 8] 9 0
